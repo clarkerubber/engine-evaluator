@@ -16,13 +16,11 @@ function cheatIndex ( $username, $token = NULL, $target = "http://en.lichess.org
 	//Output: A players cheat index
 
 	global $SAMPLE_SIZE, $lichessApiToken;
-	global $SD_POINTS_TOTAL, $BL_POINTS_TOTAL, $CA_POINTS_TOTAL, $RI_POINTS_TOTAL, $IP_POINTS_TOTAL;
+	global $POINTS_TOTAL;
 
 	if( $token == NULL ){
 		$token = $lichessApiToken;
 	}
-
-	$totalAvailable = $SD_POINTS_TOTAL + $BL_POINTS_TOTAL + $CA_POINTS_TOTAL + $RI_POINTS_TOTAL + $IP_POINTS_TOTAL;
 
 	$gameReq = $target."game?username=$username&rated=1&nb=$SAMPLE_SIZE&token=$token"; //api request for player game data
 	$playerReq = $target."user/$username?token=$lichessApiToken"; //api request for player information
@@ -35,34 +33,45 @@ function cheatIndex ( $username, $token = NULL, $target = "http://en.lichess.org
 		$player = json_decode( $playerJson, TRUE ); //decode player data
 
 		if ( !empty($games) && !empty($player)){
+			$points = array();
 			//-----Game Functions-------
-			$SDpoints = SDpoints( $games, $username );
-			$BLpoints = BLpoints( $games, $username );
-			$CApoints = CApoints( $games, $username );
+			$points['SD'] = SDpoints( $games, $username );
+			$points['BL'] = BLpoints( $games, $username );
+			$points['CA'] = CApoints( $games, $username );
 
 			//-----Player Functions-----
-			$RIpoints = RIpoints( $player['progress'] );
-			$IPpoints = IPpoints( $player['knownEnginesSharingIp'] );
+			$points['RI'] = RIpoints( $player['progress'] );
+			$points['IP'] = IPpoints( $player['knownEnginesSharingIp'] );
 
-			$cheatIndex = 100 * ( $SDpoints + $BLpoints + $CApoints + $RIpoints + $IPpoints ) / $totalAvailable;
+			arsort($points);
+
+			$availableAlloc = 100;
+			$cheatIndex = 0;
+
+			foreach ($points as $key => $value) {
+				if( $availableAlloc - $POINTS_TOTAL[$key] >= 0 ) {
+					$availableAlloc -= $POINTS_TOTAL[$key];
+					$cheatIndex += $value;
+				}
+			}
 
 			//-----Report Outputs-------
 			$format = '{
-	"userId" : %s,
-	"cheatIndex" : %3.2f,
-	"moveTime" : %3.2f,
-	"blur" : %3.2f,
-	"computerAnalysis" : %3.2f,
-	"progress" : %3.2f,
-	"knownEngineIP" : %3.2f,
-	"Error" : 0
-}';
-			$output = sprintf($format, $username, $cheatIndex, 
-				100 * $SDpoints / $SD_POINTS_TOTAL, 
-				100 * $BLpoints / $BL_POINTS_TOTAL,
-				100 * $CApoints / $CA_POINTS_TOTAL,
-				100 * $RIpoints / $RI_POINTS_TOTAL,
-				100 * $IPpoints / $IP_POINTS_TOTAL);
+				"userId" : %s,
+				"cheatIndex" : %3.2f,
+				"moveTime" : %3.2f,
+				"blur" : %3.2f,
+				"computerAnalysis" : %3.2f,
+				"progress" : %3.2f,
+				"knownEngineIP" : %3.2f,
+				"Error" : 0
+			}';
+			$output = sprintf($format, $username, floor($cheatIndex), 
+				$points['SD'],
+				$points['BL'],
+				$points['CA'],
+				$points['RI'],
+				$points['IP']);
 
 
 		}else{

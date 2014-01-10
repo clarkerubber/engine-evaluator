@@ -5,7 +5,7 @@ function BLpoints ( $games, $username ) {
 	//Output: Amount of points for blur rate
 
 	global $SAMPLE_SIZE;
-	global $BL_POINTS_TOTAL, $BL_CONST_MIN_MOVES;
+	global $POINTS_TOTAL, $BL_CONST_MIN_MOVES;
 
 	$gamesWithData = 0;
 	$unscaledPoints = 0;
@@ -34,7 +34,7 @@ function BLpoints ( $games, $username ) {
 			}
 		}
 	}
-	return scalePoints( $BL_POINTS_TOTAL, $gamesWithData, $unscaledPoints );
+	return scalePoints( $POINTS_TOTAL['BL'], $gamesWithData, $unscaledPoints );
 }
 
 function BLpointsForGame( $blurs, $moveCount ) {

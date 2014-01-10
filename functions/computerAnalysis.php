@@ -5,7 +5,7 @@ function CApoints ( $games, $username ) {
 	//Output: Amount of points for blur rate
 
 	global $SAMPLE_SIZE;
-	global $CA_POINTS_TOTAL, $CA_CONST_MIN_MOVES;
+	global $POINTS_TOTAL, $CA_CONST_MIN_MOVES;
 
 	$gamesWithData = 0;
 	$unscaledPoints = 0;
@@ -34,7 +34,7 @@ function CApoints ( $games, $username ) {
 			}
 		}
 	}
-	return scalePoints( $CA_POINTS_TOTAL, $gamesWithData, $unscaledPoints );
+	return scalePoints( $POINTS_TOTAL['CA'], $gamesWithData, $unscaledPoints );
 }
 
 function CApointsForGame ( $analysis, $moveCount ) {

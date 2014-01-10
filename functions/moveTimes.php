@@ -5,7 +5,7 @@ function SDpoints ( $games, $username ) {
 	//Output: Points - a score of how suspicious a player is.
 
 	global $SAMPLE_SIZE;
-	global $SD_POINTS_TOTAL, $SD_CONST_MIN_MOVES;
+	global $POINTS_TOTAL, $SD_CONST_MIN_MOVES;
 
 	$gamesWithData = 0;
 	$unscaledPoints = 0;
@@ -32,7 +32,7 @@ function SDpoints ( $games, $username ) {
 			}
 		}
 	}
-	return scalePoints( $SD_POINTS_TOTAL, $gamesWithData, $unscaledPoints );
+	return scalePoints( $POINTS_TOTAL['SD'], $gamesWithData, $unscaledPoints );
 }
 
 function SDpointsForGame ( $moves ) {
