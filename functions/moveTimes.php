@@ -7,7 +7,7 @@ function SDpoints ( $games, $username ) {
 	global $SAMPLE_SIZE;
 	global $SD_POINTS_TOTAL, $SD_CONST_MIN_MOVES;
 
-	$gamesWithData 	= 0;
+	$gamesWithData = 0;
 	$unscaledPoints = 0;
 
 	//For all of the games
@@ -41,8 +41,8 @@ function SDpointsForGame ( $moves ) {
 
 	global $SD_CONST_TRESHOLD, $SD_CONST_ADJ;
 
-	$deviationOverMean 	= SDdeviationOverMean( $moves );
-	$output 			= 0;
+	$deviationOverMean = SDdeviationOverMean( $moves );
+	$output = 0;
 
 	if( $deviationOverMean < $SD_CONST_TRESHOLD ){
 		/*
@@ -63,9 +63,9 @@ function SDdeviationOverMean ( $moves ) {
 	//Input: A list of moves
 	//Output: Standard Deviation / Mean Move Time
 
-	$sum 		= 0;
-	$squareDif 	= 0;
-	$moveCount 	= count( $moves ); 
+	$sum = 0;
+	$squareDif = 0;
+	$moveCount = count( $moves ); 
 
 	//Determine Mean of Times
 	foreach( $moves as $time ){

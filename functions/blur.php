@@ -7,7 +7,7 @@ function BLpoints ( $games, $username ) {
 	global $SAMPLE_SIZE;
 	global $BL_POINTS_TOTAL, $BL_CONST_MIN_MOVES;
 
-	$gamesWithData 	= 0;
+	$gamesWithData = 0;
 	$unscaledPoints = 0;
 
 	//For all of the games

@@ -24,15 +24,15 @@ function cheatIndex ( $username, $token = NULL, $target = "http://en.lichess.org
 
 	$totalAvailable = $SD_POINTS_TOTAL + $BL_POINTS_TOTAL + $CA_POINTS_TOTAL + $RI_POINTS_TOTAL + $IP_POINTS_TOTAL;
 
-	$gameReq 			= $target."game?username=$username&rated=1&nb=$SAMPLE_SIZE&token=$token"; //api request for player game data
-	$playerReq 			= $target."user/$username?token=$lichessApiToken"; //api request for player information
+	$gameReq = $target."game?username=$username&rated=1&nb=$SAMPLE_SIZE&token=$token"; //api request for player game data
+	$playerReq = $target."user/$username?token=$lichessApiToken"; //api request for player information
 
 	if( functionalURL( $gameReq ) && functionalURL( $playerReq ) ){
-		$gameJson 			= file_get_contents( $gameReq ); //req game data
-		$playerJson 		= file_get_contents( $playerReq ); //req player data
+		$gameJson = file_get_contents( $gameReq ); //req game data
+		$playerJson = file_get_contents( $playerReq ); //req player data
 
-		$games 				= json_decode( $gameJson, TRUE )['list']; //decode game data
-		$player 			= json_decode( $playerJson, TRUE ); //decode player data
+		$games = json_decode( $gameJson, TRUE )['list']; //decode game data
+		$player = json_decode( $playerJson, TRUE ); //decode player data
 
 		if ( !empty($games) && !empty($player)){
 			//-----Game Functions-------

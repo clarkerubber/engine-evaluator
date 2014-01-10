@@ -7,7 +7,7 @@ function CApoints ( $games, $username ) {
 	global $SAMPLE_SIZE;
 	global $CA_POINTS_TOTAL, $CA_CONST_MIN_MOVES;
 
-	$gamesWithData 	= 0;
+	$gamesWithData = 0;
 	$unscaledPoints = 0;
 
 	//For all of the games
@@ -20,12 +20,12 @@ function CApoints ( $games, $username ) {
 			//-----Determine What side the player is-----
 			if( $game['players']['white']['userId'] == $username ) {
 				//player is white
-				$analysis 		= $game['players']['white']['analysis'];
-				$moveCount 		= count( $game['players']['white']['moveTimes'] );
+				$analysis = $game['players']['white']['analysis'];
+				$moveCount = count( $game['players']['white']['moveTimes'] );
 			} else {
 				//player is black
-				$analysis 		= $game['players']['black']['analysis'];
-				$moveCount 		= count( $game['players']['black']['moveTimes'] );
+				$analysis = $game['players']['black']['analysis'];
+				$moveCount = count( $game['players']['black']['moveTimes'] );
 			}
 
 			if( $moveCount > $CA_CONST_MIN_MOVES ){
@@ -44,8 +44,8 @@ function CApointsForGame ( $analysis, $moveCount ) {
 	global $CA_CONST_INACCURACY, $CA_CONST_MISTAKE, $CA_CONST_BLUNDER;
 
 	$inaccuracyRate = $analysis['inaccuracy'] / $moveCount;
-	$mistakeRate 	= $analysis['mistake'] / $moveCount;
-	$blunderRate 	= $analysis['blunder'] / $moveCount;
+	$mistakeRate = $analysis['mistake'] / $moveCount;
+	$blunderRate = $analysis['blunder'] / $moveCount;
 
 	$output = 1 - abs( $CA_CONST_INACCURACY * $inaccuracyRate + $CA_CONST_MISTAKE * $mistakeRate + $CA_CONST_BLUNDER * $blunderRate );
 
