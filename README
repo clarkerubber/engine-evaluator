@@ -1,0 +1,58 @@
+Aim: To provide a grading system for players with
+regards to the likelihood that they are cheating.
+
+Method: There are 5 main points of information that
+can be used to aid in identifying cheaters, that are:
+	-IP relationship to known cheaters
+	-Rating progress
+	-Blur rate
+	-Perfection of moves (computer analysis)
+	-Standard Distribution of move times
+
+The relationship to known cheaters is boolean, so 
+points are either allocated or not.
+
+	IPpoints ~ IF IP relationship to known engine
+
+The rating progress is dependant on the win rate,
+RD, and opponent ratings. This system is to be improved.
+Currently is is a linear relationship with rating increase.
+
+	RIpoints ~ Increase in rating
+
+Points assigned for blur rate is a square relationship
+with the proportion of blurs to moves, where the 
+proportion is 0 -> 1. This is so players with less
+blurs fall off faster.
+
+	BLpoints ~ blur rate ^ 2
+
+Perfection of moves is harder to quantify. 0 inaccuracies,
+0 mistakes, and 0 blunders will obviously be assigned the
+maximum amounts of points, but at what rate will points
+be diminished?
+
+This approach shown here starts each game with 1 point
+(the maximum possible), then subtracts the proportion
+of each type of error (0 -> 1) from the starting value 
+using different coefficients for each.
+
+	CApoints ~ 1 - error rate
+
+The relationship between move time and probability
+of cheating is the most complicated process in this system.
+By inspection, players who have more consistent move times
+have a higher likelihood of cheating. The more consistent
+a players move time, the lower the standard distribution (SD)
+of move times.
+
+However, for fast games, even a legitimate players SD
+will be relatively low. And in long games, a cheaters SD
+can be elevated. Using this knowledge, this system
+uses the ratio of SD / Mean (average) to determine if a player
+is likely cheating. This value is then 
+
+	SDpoints ~ ( 1 - SD / Mean ) ^ 2
+
+These points are then added together with different weights
+to each to give an overall Cheat Index.
