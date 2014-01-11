@@ -1,6 +1,6 @@
 <?php
 
-include("../keys/keys.php"); //include keys to lichess API
+include("keys.gitignore/keys.php"); //include keys to lichess API
 include("config.php"); //Include settings
 
 //include functions
@@ -56,16 +56,7 @@ function cheatIndex ( $username, $token = NULL, $target = "http://en.lichess.org
 			}
 
 			//-----Report Outputs-------
-			$format = '{
-				"userId" : %s,
-				"cheatIndex" : %3.2f,
-				"moveTime" : %3.2f,
-				"blur" : %3.2f,
-				"computerAnalysis" : %3.2f,
-				"progress" : %3.2f,
-				"knownEngineIP" : %3.2f,
-				"Error" : 0
-			}';
+			$format = '{"userId":"%s","cheatIndex":%3.2f,"moveTime":%3.2f,"blur":%3.2f,"computerAnalysis":%3.2f,"progress":%3.2f,"knownEngineIP":%3.2f,"Error":0}';
 			$output = sprintf($format, $username, floor($cheatIndex), 
 				$points['SD'],
 				$points['BL'],
