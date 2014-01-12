@@ -11,12 +11,12 @@ include("functions/computerAnalysis.php");
 include("functions/ratingIncrease.php");
 include("functions/knownEngineIP.php");
 
-function cheatIndex ( $username, $token = NULL, $target = "http://en.lichess.org/api/" ) {
+function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "http://en.lichess.org/api/" ) {
 	//Input: A players name
 	//Output: A players cheat index
 
 	global $SAMPLE_SIZE, $lichessApiToken;
-	global $POINTS_TOTAL, $DEEP_SEARCH_THRESHOLD, $DEEP_SAMPLE_SIZE, $DEEP_SELECTION_SIZE;
+	global $POINTS_TOTAL, $DEEP_SEARCH_THRESHOLD, $DEEP_SAMPLE_SIZE, $DEEP_SELECTION_SIZE, $DEEP_MOVE_THRESHOLD;
 
 	if( $token == NULL ){
 		$token = $lichessApiToken;
@@ -57,7 +57,7 @@ function cheatIndex ( $username, $token = NULL, $target = "http://en.lichess.org
 				}
 			}
 
-			if ( $cheatIndex >= $DEEP_SEARCH_THRESHOLD ) {
+			if ( $cheatIndex >= $DEEP_SEARCH_THRESHOLD || $forceDeep == TRUE ) {
 				$gameReq = $target."game?username=$username&rated=1&nb=$DEEP_SAMPLE_SIZE&token=$token";
 
 				$games = json_decode( file_get_contents( $gameReq ), TRUE )['list'];
@@ -67,9 +67,9 @@ function cheatIndex ( $username, $token = NULL, $target = "http://en.lichess.org
 					//this is a bit of a hack so I don't have to make a new set of functions.
 					$game = array();
 					$game[] = $games[$key];
-					$deepPoints['SD'] = SDpoints( $game, $username );
-					$deepPoints['BL'] = BLpoints( $game, $username );
-					$deepPoints['CA'] = CApoints( $game, $username );
+					$deepPoints['SD'] = SDpoints( $game, $username, $DEEP_MOVE_THRESHOLD );
+					$deepPoints['BL'] = BLpoints( $game, $username, $DEEP_MOVE_THRESHOLD );
+					$deepPoints['CA'] = CApoints( $game, $username, $DEEP_MOVE_THRESHOLD );
 
 					arsort( $deepPoints );
 
@@ -127,9 +127,13 @@ function cheatIndex ( $username, $token = NULL, $target = "http://en.lichess.org
 
 $output = "";
 
-if( isset( $argv[1] ) && isset( $argv[2] ) ){
+if( isset( $argv[1] ) && isset( $argv[2] ) && isset( $argv[3] ) && isset( $argv[4] ) ) {
+	$output = cheatIndex( strtolower( $argv[1] ), $argv[2], $argv[3], $argv[4] );
+} else if ( isset( $argv[1] ) && isset( $argv[2] ) && isset( $argv[3] ) ) {
+	$output = cheatIndex( strtolower( $argv[1] ), $argv[2], $argv[3] );
+} else if ( isset( $argv[1] ) && isset( $argv[2] ) ) {
 	$output = cheatIndex( strtolower( $argv[1] ), $argv[2] );
-} else if ( isset( $argv[1] ) ){
+} else if ( isset( $argv[1] ) ) {
 	$output = cheatIndex( strtolower( $argv[1] ) );
 }
 
