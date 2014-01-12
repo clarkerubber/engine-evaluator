@@ -45,7 +45,7 @@ function cheatIndex ( $username, $token = NULL, $target = "http://en.lichess.org
 			$points['RI'] = RIpoints( $player['progress'] );
 			$points['IP'] = IPpoints( $player['knownEnginesSharingIp'] );
 
-			arsort($points);
+			arsort( $points );
 
 			$availableAlloc = 100;
 			$cheatIndex = 0;
@@ -63,20 +63,20 @@ function cheatIndex ( $username, $token = NULL, $target = "http://en.lichess.org
 				$games = json_decode( file_get_contents( $gameReq ), TRUE )['list'];
 				$gameIndexes = array();
 				//Process each of the games individually with individual indexes.
-				foreach ($games as $key => $unused) {
+				foreach ( $games as $key => $unused ) {
 					//this is a bit of a hack so I don't have to make a new set of functions.
 					$game = array();
 					$game[] = $games[$key];
-					$deep_points['SD'] = SDpoints( $game, $username );
-					$deep_points['BL'] = BLpoints( $game, $username );
-					$deep_points['CA'] = CApoints( $game, $username );
+					$deepPoints['SD'] = SDpoints( $game, $username );
+					$deepPoints['BL'] = BLpoints( $game, $username );
+					$deepPoints['CA'] = CApoints( $game, $username );
 
-					arsort($deep_points);
+					arsort( $deep_points );
 
 					$availableAlloc = 100;
 					$gameIndex = 0;
 
-					foreach ($deep_points as $key => $value) {
+					foreach ($deepPoints as $key => $value) {
 						if( $availableAlloc - $POINTS_TOTAL[$key] >= 0 ) {
 							$availableAlloc -= $POINTS_TOTAL[$key];
 							$gameIndex += $value;
@@ -89,9 +89,7 @@ function cheatIndex ( $username, $token = NULL, $target = "http://en.lichess.org
 				array_multisort( $gameIndexes, SORT_DESC, SORT_NUMERIC, $games );
 				//var_dump($gameIndexes);
 				//var_dump($games);
-				
 
-				$counter = $DEEP_SELECTION_SIZE;
 				$returnedSampleSize = count( $games );
 				$y = 0;
 
