@@ -3,6 +3,10 @@
 //-----Globals-------------------------
 $SAMPLE_SIZE		= 10; 	//amount of games to sample
 
+$DEEP_SAMPLE_SIZE 	= 100;
+$DEEP_SELECTION_SIZE = 20;
+$DEEP_SEARCH_THRESHOLD = 60;
+
 //-----Standard Deviation--------------
 $POINTS_TOTAL['SD']	= 50; 	//Total amount of points from standard deviation to be assigned towards cheating index
 

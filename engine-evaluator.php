@@ -16,7 +16,7 @@ function cheatIndex ( $username, $token = NULL, $target = "http://en.lichess.org
 	//Output: A players cheat index
 
 	global $SAMPLE_SIZE, $lichessApiToken;
-	global $POINTS_TOTAL;
+	global $POINTS_TOTAL, $DEEP_SEARCH_THRESHOLD, $DEEP_SAMPLE_SIZE, $DEEP_SELECTION_SIZE;
 
 	if( $token == NULL ){
 		$token = $lichessApiToken;
@@ -25,14 +25,16 @@ function cheatIndex ( $username, $token = NULL, $target = "http://en.lichess.org
 	$gameReq = $target."game?username=$username&rated=1&nb=$SAMPLE_SIZE&token=$token"; //api request for player game data
 	$playerReq = $target."user/$username?token=$lichessApiToken"; //api request for player information
 
-	if( functionalURL( $gameReq ) && functionalURL( $playerReq ) ){
+	if ( functionalURL( $gameReq ) && functionalURL( $playerReq ) ){
 		$gameJson = file_get_contents( $gameReq ); //req game data
 		$playerJson = file_get_contents( $playerReq ); //req player data
 
 		$games = json_decode( $gameJson, TRUE )['list']; //decode game data
 		$player = json_decode( $playerJson, TRUE ); //decode player data
 
-		if ( !empty($games) && !empty($player)){
+		$deepIndex = 0;
+
+		if ( !empty( $games ) && !empty( $player ) ){
 			$points = array();
 			//-----Game Functions-------
 			$points['SD'] = SDpoints( $games, $username );
@@ -55,9 +57,57 @@ function cheatIndex ( $username, $token = NULL, $target = "http://en.lichess.org
 				}
 			}
 
+			if ( $cheatIndex >= $DEEP_SEARCH_THRESHOLD ) {
+				$gameReq = $target."game?username=$username&rated=1&nb=$DEEP_SAMPLE_SIZE&token=$token";
+
+				$games = json_decode( file_get_contents( $gameReq ), TRUE )['list'];
+				$gameIndexes = array();
+				//Process each of the games individually with individual indexes.
+				foreach ($games as $key => $unused) {
+					//this is a bit of a hack so I don't have to make a new set of functions.
+					$game = array();
+					$game[] = $games[$key];
+					$deep_points['SD'] = SDpoints( $game, $username );
+					$deep_points['BL'] = BLpoints( $game, $username );
+					$deep_points['CA'] = CApoints( $game, $username );
+
+					arsort($deep_points);
+
+					$availableAlloc = 100;
+					$gameIndex = 0;
+
+					foreach ($deep_points as $key => $value) {
+						if( $availableAlloc - $POINTS_TOTAL[$key] >= 0 ) {
+							$availableAlloc -= $POINTS_TOTAL[$key];
+							$gameIndex += $value;
+						}
+					}
+
+					$gameIndexes[] = $gameIndex;
+				}
+
+				array_multisort( $gameIndexes, SORT_DESC, SORT_NUMERIC, $games );
+				//var_dump($gameIndexes);
+				//var_dump($games);
+				
+
+				$counter = $DEEP_SELECTION_SIZE;
+				$returnedSampleSize = count( $games );
+				$y = 0;
+
+				//Calculate mean
+
+				for($x = 0; $x < $DEEP_SELECTION_SIZE && $x < $returnedSampleSize; $x++ ){
+					//printf( "%2.2f URL: %s\n", $gameIndexes[$x], $games[$x]['url'] );
+					$sum += $gameIndexes[$x];
+					$y++;
+				}
+				$deepIndex = $sum / $y;
+			}
+
 			//-----Report Outputs-------
-			$format = '{"userId":"%s","cheatIndex":%3.2f,"moveTime":%3.2f,"blur":%3.2f,"computerAnalysis":%3.2f,"progress":%3.2f,"knownEngineIP":%3.2f,"Error":0}';
-			$output = sprintf($format, $username, floor($cheatIndex), 
+			$format = '{"userId":"%s","cheatIndex":%3.2f,"deepIndex":%3.2f,"moveTime":%3.2f,"blur":%3.2f,"computerAnalysis":%3.2f,"progress":%3.2f,"knownEngineIP":%3.2f,"Error":0}';
+			$output = sprintf($format, $username, $cheatIndex, $deepIndex, 
 				$points['SD'],
 				$points['BL'],
 				$points['CA'],
@@ -76,6 +126,8 @@ function cheatIndex ( $username, $token = NULL, $target = "http://en.lichess.org
 
 //When calling from command line. Argv[1] is the username, and Argv[2] is the
 //optional token to access hidden information.
+
+$output = "";
 
 if( isset( $argv[1] ) && isset( $argv[2] ) ){
 	$output = cheatIndex( strtolower( $argv[1] ), $argv[2] );
