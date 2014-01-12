@@ -71,7 +71,7 @@ function cheatIndex ( $username, $token = NULL, $target = "http://en.lichess.org
 					$deepPoints['BL'] = BLpoints( $game, $username );
 					$deepPoints['CA'] = CApoints( $game, $username );
 
-					arsort( $deep_points );
+					arsort( $deepPoints );
 
 					$availableAlloc = 100;
 					$gameIndex = 0;
