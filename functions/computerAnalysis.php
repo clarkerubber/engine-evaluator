@@ -1,11 +1,15 @@
 <?php
 
-function CApoints ( $games, $username ) {
+function CApoints ( $games, $username, $threshold = NULL ) {
 	//Input: A list of games with blurs
 	//Output: Amount of points for blur rate
 
 	global $SAMPLE_SIZE;
 	global $POINTS_TOTAL, $CA_CONST_MIN_MOVES;
+
+	if ( $threshold == NULL ) {
+		$threshold = $CA_CONST_MIN_MOVES;
+	}
 
 	$gamesWithData = 0;
 	$unscaledPoints = 0;
@@ -28,7 +32,7 @@ function CApoints ( $games, $username ) {
 				$moveCount = count( $game['players']['black']['moveTimes'] );
 			}
 
-			if( $moveCount > $CA_CONST_MIN_MOVES ){
+			if( $moveCount > $threshold ){
 				$gamesWithData++;
 				$unscaledPoints += CApointsForGame( $analysis, $moveCount );
 			}
