@@ -90,13 +90,13 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 							$gameIndex += $value;
 							if ($value > 0) {
 								if( $deepPointsKey == 'SD' ) {
-									$summary[] = sprintf( "Move-Time Deviation: %2.0f/50", $value );
+									$summary[] = sprintf( "Move-Time Deviation: %2.0f/100", 2 * $value );
 
 								} else if ( $deepPointsKey == 'BL' ) {
-									$summary[] = sprintf( "Blur Rate: %2.0f/50", $value );
+									$summary[] = sprintf( "Blur Rate: %2.0f/100", 2 * $value );
 
 								} else if ( $deepPointsKey == 'CA' ) {
-									$summary[] = sprintf( "Error Rate: %2.0f/50", $value );
+									$summary[] = sprintf( "Error Rate: %2.0f/100", 2 * $value );
 								}
 							}
 						}
@@ -137,11 +137,11 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 				"deepIndex" => floor($deepIndex),
 				"action" => $action,
 				"reportDescription" => $reportDescription,
-				"moveTime" => floor($points['SD']),
-				"blur" => floor($points['BL']),
-				"computerAnalysis" => floor($points['CA']),
-				"progress" => floor($points['RI']),
-				"knownEngineIP" => floor($points['IP']),
+				"moveTime" => floor( 100 * $points['SD'] / $POINTS_TOTAL['SD'] ),
+				"blur" => floor( 100 * $points['BL'] / $POINTS_TOTAL['BL'] ),
+				"computerAnalysis" => floor( 100 * $points['CA'] / $POINTS_TOTAL['CA'] ),
+				"progress" => floor( 100 * $points['RI'] / $POINTS_TOTAL['RI'] ),
+				"knownEngineIP" => floor( 100 * $points['IP'] / $POINTS_TOTAL['IP'] ),
 				"Error" => 0
 				);
 
