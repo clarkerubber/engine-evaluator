@@ -148,24 +148,28 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 			$output = json_encode($outputArray);
 
 		}else{
-			$output = '{"Error" : 2}';
+			exit(2);
 		}
 	} else {
-		$output = '{"Error" : 1}';
+		exit(1);
 	}
 	return $output;
 }
 
 $output = "";
 
-if( isset( $argv[1] ) && isset( $argv[2] ) && isset( $argv[3] ) && isset( $argv[4] ) ) {
+if( isset( $argv[4] ) ) {
 	$output = cheatIndex( strtolower( $argv[1] ), $argv[2], $argv[3], $argv[4] );
-} else if ( isset( $argv[1] ) && isset( $argv[2] ) && isset( $argv[3] ) ) {
+} else if ( isset( $argv[3] ) ) {
 	$output = cheatIndex( strtolower( $argv[1] ), $argv[2], $argv[3] );
-} else if ( isset( $argv[1] ) && isset( $argv[2] ) ) {
+} else if ( isset( $argv[2] ) ) {
 	$output = cheatIndex( strtolower( $argv[1] ), $argv[2] );
 } else if ( isset( $argv[1] ) ) {
 	$output = cheatIndex( strtolower( $argv[1] ) );
+} else {
+    error_log("Missing username parameter");
+    exit(3);
 }
 
 echo $output;
+exit(0);
