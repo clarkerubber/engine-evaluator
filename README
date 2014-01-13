@@ -17,6 +17,8 @@ Output:
 	"userId":"thinkabit", 	//Username
 	"cheatIndex":67,	//CheatIndex from 0->100 higher = likely cheating
 	"deepIndex":89,		//DeepIndex of past 100 games from 0->100
+	"action":REPORT, 	//Or MARK, or NOTHING
+	"games":{'url':"HTTPADDR", 'index':50}, //List of all the games that lit up
 	"moveTime":12,		//Points scored from moveTime in past 10 games (int 0->50)
 	"blur":0,		// “” “” “” (int 0->50)
 	"computerAnalysis":42,	// “” “” “” (int 0->50)

@@ -1,5 +1,9 @@
 <?php
 
+//-----ACTION THRESHOLDS---------------
+$REPORT_THRESHOLD 	= 60;
+$MARK_THRESHOLD		= 101;
+
 //-----Globals-------------------------
 $SAMPLE_SIZE		= 10; 	//amount of games to sample
 

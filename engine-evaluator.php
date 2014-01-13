@@ -17,6 +17,7 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 
 	global $SAMPLE_SIZE, $lichessApiToken;
 	global $POINTS_TOTAL, $DEEP_SEARCH_THRESHOLD, $DEEP_SAMPLE_SIZE, $DEEP_SELECTION_SIZE, $DEEP_MOVE_THRESHOLD;
+	global $REPORT_THRESHOLD, $MARK_THRESHOLD;
 
 	if( $token == NULL ){
 		$token = $lichessApiToken;
@@ -38,7 +39,9 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 		$deepIndex = 0;
 
 		if ( !empty( $games ) && !empty( $player ) ){
+			$action = "NOTHING";
 			$points = array();
+			$reportGames = array();
 			//-----Game Functions-------
 			$points['SD'] = SDpoints( $games, $username );
 			$points['BL'] = BLpoints( $games, $username );
@@ -61,6 +64,10 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 			}
 
 			if ( $cheatIndex >= $DEEP_SEARCH_THRESHOLD || $forceDeep == TRUE ) {
+				if ( $cheatIndex >= $REPORT_THRESHOLD ) {
+					$action = "REPORT";
+				}
+
 				$gameReq = $target."game?username=$username&rated=1&nb=$DEEP_SAMPLE_SIZE&token=$token";
 
 				$games = json_decode( file_get_contents( $gameReq ), TRUE )['list'];
@@ -100,17 +107,25 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 
 				for($x = 0; $x < $DEEP_SELECTION_SIZE && $x < $returnedSampleSize; $x++ ){
 					//printf( "%2.2f URL: %s\n", $gameIndexes[$x], $games[$x]['url'] );
+					$reportGames[] = array( "url" => $games[$x]['url'], "index" => floor( $gameIndexes[$x] ) );
 					$sum += $gameIndexes[$x];
 					$y++;
 				}
 				$deepIndex = $sum / $y;
+				if ( $deepIndex >= $MARK_THRESHOLD ) {
+					$action = "MARK";
+				}
 			}
+
+
 
 			//-----Report Outputs-------
 			$outputArray = array(
 				"userId" => $username,
 				"cheatIndex" => floor($cheatIndex),
 				"deepIndex" => floor($deepIndex),
+				"action" => $action,
+				"games" => $reportGames,
 				"moveTime" => floor($points['SD']),
 				"blur" => floor($points['BL']),
 				"computerAnalysis" => floor($points['CA']),
