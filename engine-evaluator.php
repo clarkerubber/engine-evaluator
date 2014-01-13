@@ -32,11 +32,10 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 		$games = json_decode( $gameJson, TRUE )['list']; //decode game data
 		$player = json_decode( $playerJson, TRUE ); //decode player data
 
-		$deepIndex = 0;
+		$deepIndex = null;
 
 		if ( !empty( $games ) && !empty( $player ) ){
 			$action = "NOTHING";
-			$reportDescription = "";
 			$points = array();
 			$reportGames = array();
 			//-----Game Functions-------
@@ -78,7 +77,9 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 
 					$availableAlloc = 100;
 					$gameIndex = 0;
-					$summary = array(); //summary to be used in report.
+					$summary = array(
+                        "url" => str_replace( "lichess.org/", "lichess.org/analyse/", $games[$key]['url'] )
+                    );
 
 					foreach ($deepPoints as $deepPointsKey => $value) {
 						if( $availableAlloc - $POINTS_TOTAL[$deepPointsKey] >= 0 ) {
@@ -86,19 +87,18 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 							$gameIndex += $value;
 							if ($value > 0) {
 								if( $deepPointsKey == 'SD' ) {
-									$summary[] = sprintf( "Move-Time Deviation: %3.0f/100", 2 * $value );
+									$summary["moveTime"] = floor(2 * $value);
 
 								} else if ( $deepPointsKey == 'BL' ) {
-									$summary[] = sprintf( "Blur Rate: %3.0f/100", 2 * $value );
+									$summary["blur"] = floor(2 * $value);
 
 								} else if ( $deepPointsKey == 'CA' ) {
-									$summary[] = sprintf( "Error Rate: %3.0f/100", 2 * $value );
+									$summary["error"] = floor(2 * $value);
 								}
 							}
 						}
 					}
-					$summaries[] = sprintf("%3.0f - ", $gameIndex)
-						.str_replace( "http://lichess.org/", "http://lichess.org/analyse/", $games[$key]['url'] )."\n     ".implode(", ", $summary);
+                    $summaries[] = $summary;
 					$gameIndexes[] = $gameIndex;
 				}
 
@@ -111,9 +111,10 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 
 				//Calculate mean
 
+				$sum = 0;
 				for($x = 0; $x < $DEEP_SELECTION_SIZE && $x < $returnedSampleSize; $x++ ){
 					if($gameIndexes[$x] > 0){ //i.e. there is enough moves played
-						$reportDescription .= $summaries[$x]."\n";
+						$reportGames[] = $summaries[$x];
 						$sum += $gameIndexes[$x];
 						$y++;
 					}
@@ -125,17 +126,15 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 				if ( $deepIndex >= $MARK_THRESHOLD ) {
 					$action = "MARK";
 				}
-				$reportDescription = sprintf("Cheat Index: %3.0f/100,  Deep Index: %3.0f/100\n", $cheatIndex, $deepIndex).$reportDescription;
-				//echo $reportDescription;
 			}
 
 			//-----Report Outputs-------
 			$outputArray = array(
 				"userId" => $username,
 				"cheatIndex" => floor($cheatIndex),
-				"deepIndex" => floor($deepIndex),
+				"deepIndex" => $deepIndex ? floor($deepIndex) : null,
 				"action" => $action,
-				"reportDescription" => $reportDescription,
+				"games" => $reportGames,
 				"moveTime" => floor( 100 * $points['SD'] / $POINTS_TOTAL['SD'] ),
 				"blur" => floor( 100 * $points['BL'] / $POINTS_TOTAL['BL'] ),
 				"computerAnalysis" => floor( 100 * $points['CA'] / $POINTS_TOTAL['CA'] ),
