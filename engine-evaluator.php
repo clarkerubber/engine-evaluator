@@ -101,7 +101,8 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 							}
 						}
 					}
-					$summaries[] = sprintf("%3.0f - ", $gameIndex).$games[$key]['url']."\n     ".implode(", ", $summary);
+					$summaries[] = sprintf("%3.0f - ", $gameIndex)
+						.str_replace( "http://lichess.org/", "http://lichess.org/analyse/", $games[$key]['url'] )."\n     ".implode(", ", $summary);
 					$gameIndexes[] = $gameIndex;
 				}
 
@@ -126,7 +127,7 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 					$action = "MARK";
 				}
 				$reportDescription = sprintf("Cheat Index: %3.0f/100,  Deep Index: %3.0f/100\n", $cheatIndex, $deepIndex).$reportDescription;
-				//echo $reportDescription;
+				echo $reportDescription;
 			}
 
 			//-----Report Outputs-------
