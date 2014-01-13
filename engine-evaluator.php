@@ -32,7 +32,7 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 		$games = json_decode( $gameJson, TRUE )['list']; //decode game data
 		$player = json_decode( $playerJson, TRUE ); //decode player data
 
-		$deepIndex = 0;
+		$deepIndex = null;
 
 		if ( !empty( $games ) && !empty( $player ) ){
 			$action = "NOTHING";
@@ -134,7 +134,7 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 			$outputArray = array(
 				"userId" => $username,
 				"cheatIndex" => floor($cheatIndex),
-				"deepIndex" => floor($deepIndex),
+				"deepIndex" => $deepIndex ? floor($deepIndex) : null,
 				"action" => $action,
 				"reportDescription" => $reportDescription,
 				"moveTime" => floor( 100 * $points['SD'] / $POINTS_TOTAL['SD'] ),
