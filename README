@@ -53,6 +53,29 @@ Output:
 	{"Error" : 1}
 
 
+	-User Report Example:
+Cheat Index:  99/100,  Deep Index:  74/100
+100 - http://lichess.org/5y6ztdw2
+     Blur Rate: 50/50, Move-Time Deviation: 50/50
+100 - http://lichess.org/6rfgtty3
+     Error Rate: 50/50, Blur Rate: 50/50
+100 - http://lichess.org/uqn6ynpu/black
+     Move-Time Deviation: 50/50, Blur Rate: 50/50
+ 79 - http://lichess.org/ik4hxmrm
+     Blur Rate: 50/50, Move-Time Deviation: 29/50
+ 73 - http://lichess.org/50sw3g5l
+     Blur Rate: 50/50, Move-Time Deviation: 23/50
+ 61 - http://lichess.org/icvg9v9c/black
+     Blur Rate: 50/50, Move-Time Deviation: 11/50
+ 53 - http://lichess.org/j6zgyyer
+     Blur Rate: 50/50, Move-Time Deviation:  3/50
+ 51 - http://lichess.org/akepjxm3
+     Blur Rate: 50/50, Move-Time Deviation:  1/50
+ 45 - http://lichess.org/k3vakrrt
+     Blur Rate: 45/50
+
+     The first number is the index (likelihood of cheating) for that game. It is then followed by the URL to the game.
+     Below the URL are the indicators that were used to calculate the index.
 
 
 Aim: To provide a grading system for players with
