@@ -1,6 +1,6 @@
 <?php
 
-include("keys.gitignore/keys.php"); //include keys to lichess API
+include("keys/keys.php"); //include keys to lichess API
 include("config.php"); //Include settings
 
 //include functions
