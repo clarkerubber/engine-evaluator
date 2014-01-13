@@ -90,13 +90,13 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 							$gameIndex += $value;
 							if ($value > 0) {
 								if( $deepPointsKey == 'SD' ) {
-									$summary[] = sprintf( "Move-Time Deviation: %2.0f/100", 2 * $value );
+									$summary[] = sprintf( "Move-Time Deviation: %3.0f/100", 2 * $value );
 
 								} else if ( $deepPointsKey == 'BL' ) {
-									$summary[] = sprintf( "Blur Rate: %2.0f/100", 2 * $value );
+									$summary[] = sprintf( "Blur Rate: %3.0f/100", 2 * $value );
 
 								} else if ( $deepPointsKey == 'CA' ) {
-									$summary[] = sprintf( "Error Rate: %2.0f/100", 2 * $value );
+									$summary[] = sprintf( "Error Rate: %3.0f/100", 2 * $value );
 								}
 							}
 						}

@@ -38,11 +38,11 @@ Output:
 		      Blur Rate: 50\/50, Move-Time Deviation:  1\/50\n 
 		 45 - http:\/\/lichess.org\/k3vakrrt\n
 		      Blur Rate: 45\/50\n",
-	"moveTime":26, 			//The amount of points from move time potentially used for the cheat index (int 0->50)
-	"blur":49, 				// “” “” “” (int 0->50)
-	"computerAnalysis":49, 	// “” “” “” (int 0->50)
-	"progress":25,			// “” “” “” (int 0->25)
-	"knownEngineIP":0,		// “” “” “” (int 0->25)
+	"moveTime":26, 			//The amount of points from move time potentially used for the cheat index (int 0->100)
+	"blur":49, 				// “” “” “” (int 0->100)
+	"computerAnalysis":49, 	// “” “” “” ""
+	"progress":25,			// “” “” “” ""
+	"knownEngineIP":0,		// “” “” “” ""
 	"Error":0 				//Error code. 0 = normal
 	}
 
@@ -56,23 +56,23 @@ Output:
 	-User Report Example:
 Cheat Index:  99/100,  Deep Index:  74/100
 100 - http://lichess.org/analyse/5y6ztdw2
-     Blur Rate: 50/50, Move-Time Deviation: 50/50
+     Blur Rate: 100/100, Move-Time Deviation: 100/100
 100 - http://lichess.org/analyse/6rfgtty3
-     Error Rate: 50/50, Blur Rate: 50/50
+     Error Rate: 100/100, Blur Rate: 100/100
 100 - http://lichess.org/analyse/uqn6ynpu/black
-     Move-Time Deviation: 50/50, Blur Rate: 50/50
+     Move-Time Deviation: 100/100, Blur Rate: 100/100
  79 - http://lichess.org/analyse/ik4hxmrm
-     Blur Rate: 50/50, Move-Time Deviation: 29/50
+     Blur Rate: 100/100, Move-Time Deviation:  58/100
  73 - http://lichess.org/analyse/50sw3g5l
-     Blur Rate: 50/50, Move-Time Deviation: 23/50
+     Blur Rate: 100/100, Move-Time Deviation:  46/100
  61 - http://lichess.org/analyse/icvg9v9c/black
-     Blur Rate: 50/50, Move-Time Deviation: 11/50
+     Blur Rate: 100/100, Move-Time Deviation:  22/50
  53 - http://lichess.org/analyse/j6zgyyer
-     Blur Rate: 50/50, Move-Time Deviation:  3/50
+     Blur Rate: 100/100, Move-Time Deviation:   6/50
  51 - http://lichess.org/analyse/akepjxm3
-     Blur Rate: 50/50, Move-Time Deviation:  1/50
+     Blur Rate: 100/100, Move-Time Deviation:   2/50
  45 - http://lichess.org/analyse/k3vakrrt
-     Blur Rate: 45/50
+     Blur Rate:  90/100
 
      The first number is the index (likelihood of cheating) for that game. It is then followed by the URL to the game.
      Below the URL are the indicators that were used to calculate the index.
