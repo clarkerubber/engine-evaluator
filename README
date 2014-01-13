@@ -15,13 +15,13 @@ Output:
 	-Normal Output:
 	{
 	"userId":"thinkabit", 	//Username
-	"cheatIndex":67.32,	//CheatIndex from 0->100 higher = likely cheating
-	"deepIndex":89.16,	//DeepIndex of past 100 games from 0->100
-	"moveTime":12.22,	//Points scored from moveTime in past 10 games (int 0->50)
-	"blur":0.24,		// “” “” “” (int 0->50)
-	"computerAnalysis":42.32,	// “” “” “” (int 0->50)
-	"progress":0.00,	//“” “” “” (int 0->25)
-	"knownEngineIP":25.00,	//“” “” “” (int 0->25)
+	"cheatIndex":67,	//CheatIndex from 0->100 higher = likely cheating
+	"deepIndex":89,		//DeepIndex of past 100 games from 0->100
+	"moveTime":12,		//Points scored from moveTime in past 10 games (int 0->50)
+	"blur":0,		// “” “” “” (int 0->50)
+	"computerAnalysis":42,	// “” “” “” (int 0->50)
+	"progress":0,		//“” “” “” (int 0->25)
+	"knownEngineIP":25,	//“” “” “” (int 0->25)
 	"Error":0		//Error code. 0 = normal
 	}
 
