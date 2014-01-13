@@ -25,9 +25,12 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 	$gameReq = $target."game?username=$username&rated=1&nb=$SAMPLE_SIZE&token=$token"; //api request for player game data
 	$playerReq = $target."user/$username?token=$lichessApiToken"; //api request for player information
 
-	if ( functionalURL( $gameReq ) && functionalURL( $playerReq ) ){
+	if ( ( $gameJson = file_get_contents( $gameReq ) ) != FALSE
+		 && ( $playerJson = file_get_contents( $playerReq ) ) != FALSE ){
+		/*
 		$gameJson = file_get_contents( $gameReq ); //req game data
 		$playerJson = file_get_contents( $playerReq ); //req player data
+		*/
 
 		$games = json_decode( $gameJson, TRUE )['list']; //decode game data
 		$player = json_decode( $playerJson, TRUE ); //decode player data
