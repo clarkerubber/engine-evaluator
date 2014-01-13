@@ -127,7 +127,7 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 					$action = "MARK";
 				}
 				$reportDescription = sprintf("Cheat Index: %3.0f/100,  Deep Index: %3.0f/100\n", $cheatIndex, $deepIndex).$reportDescription;
-				echo $reportDescription;
+				//echo $reportDescription;
 			}
 
 			//-----Report Outputs-------
