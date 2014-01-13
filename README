@@ -14,17 +14,36 @@ Output:
 	JSON:
 	-Normal Output:
 	{
-	"userId":"thinkabit", 	//Username
-	"cheatIndex":67,	//CheatIndex from 0->100 higher = likely cheating
-	"deepIndex":89,		//DeepIndex of past 100 games from 0->100
-	"action":REPORT, 	//Or MARK, or NOTHING
-	"games":[{'url':"HTTPADDR", 'index':50}, ... ], //List of all the games that lit up
-	"moveTime":12,		//Points scored from moveTime in past 10 games (int 0->50)
-	"blur":0,		// “” “” “” (int 0->50)
-	"computerAnalysis":42,	// “” “” “” (int 0->50)
-	"progress":0,		//“” “” “” (int 0->25)
-	"knownEngineIP":25,	//“” “” “” (int 0->25)
-	"Error":0		//Error code. 0 = normal
+	"userId":"mob", //Username
+	"cheatIndex":93, //CheatIndex from 0->100 higher = likely cheating
+	"deepIndex":100, //DeepIndex of past 100 games from 0->100
+	"action":"REPORT", //Or MARK, or NOTHING
+	"reportDescription":"High Blur Rate: 50, Consistent Move Times: 50, http:\/\/lichess.org\/0drx677t\/black\n
+		High Blur Rate: 50, Consistent Move Times: 50, http:\/\/lichess.org\/0xe4yz2f\/black\n
+		High Blur Rate: 50, Consistent Move Times: 50, http:\/\/lichess.org\/271esk38\n
+		Consistent Move Times: 50, High Blur Rate: 50, http:\/\/lichess.org\/5yx55li4\/black\n
+		Consistent Move Times: 50, High Blur Rate: 50, http:\/\/lichess.org\/7cn8dfhj\/black\n
+		High Blur Rate: 50, Consistent Move Times: 50, http:\/\/lichess.org\/9l7nugig\/black\n
+		High Blur Rate: 50, Consistent Move Times: 50, http:\/\/lichess.org\/akrqcxzv\n
+		Consistent Move Times: 50, High Blur Rate: 50, http:\/\/lichess.org\/b7v5ic4w\/black\n
+		Consistent Move Times: 50, High Blur Rate: 50, http:\/\/lichess.org\/ct2yfvre\n
+		High Blur Rate: 50, Consistent Move Times: 50, http:\/\/lichess.org\/d32bj7e5\n", //Report to be given to moderator
+	"games":[{"url":"http:\/\/lichess.org\/0drx677t\/black","index":100},
+		{"url":"http:\/\/lichess.org\/0xe4yz2f\/black","index":100},
+		{"url":"http:\/\/lichess.org\/271esk38","index":100},
+		{"url":"http:\/\/lichess.org\/5yx55li4\/black","index":100},
+		{"url":"http:\/\/lichess.org\/7cn8dfhj\/black","index":100},
+		{"url":"http:\/\/lichess.org\/9l7nugig\/black","index":100},
+		{"url":"http:\/\/lichess.org\/akrqcxzv","index":100},
+		{"url":"http:\/\/lichess.org\/b7v5ic4w\/black","index":100},
+		{"url":"http:\/\/lichess.org\/ct2yfvre","index":100},
+		{"url":"http:\/\/lichess.org\/d32bj7e5","index":100}], //Json list of games given to moderator
+	"moveTime":44, //Points scored from moveTime in past 10 games (int 0->50)
+	"blur":48, // “” “” “” (int 0->50)
+	"computerAnalysis":36, // “” “” “” (int 0->50)
+	"progress":6, //“” “” “” (int 0->25)
+	"knownEngineIP":0, //“” “” “” (int 0->25)
+	"Error":0 //Error code. 0 = normal
 	}
 
 	-Player does not have any games:

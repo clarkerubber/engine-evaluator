@@ -40,6 +40,7 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 
 		if ( !empty( $games ) && !empty( $player ) ){
 			$action = "NOTHING";
+			$reportDescription = "";
 			$points = array();
 			$reportGames = array();
 			//-----Game Functions-------
@@ -85,18 +86,30 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 
 					$availableAlloc = 100;
 					$gameIndex = 0;
+					$summary = ""; //summary to be used in report.
 
 					foreach ($deepPoints as $key => $value) {
 						if( $availableAlloc - $POINTS_TOTAL[$key] >= 0 ) {
 							$availableAlloc -= $POINTS_TOTAL[$key];
 							$gameIndex += $value;
+
+							if( $key == 'SD' ) {
+								$summary .= "Consistent Move Times: $value, ";
+
+							} else if ( $key == 'BL' ) {
+								$summary .= "High Blur Rate: $value, ";
+
+							} else if ( $key == 'CA' ) {
+								$summary .= "Low Error Rate: $value, ";
+
+							}
 						}
 					}
-
+					$summaries[] = $summary.$games[$key]['url'];
 					$gameIndexes[] = $gameIndex;
 				}
 
-				array_multisort( $gameIndexes, SORT_DESC, SORT_NUMERIC, $games );
+				array_multisort( $gameIndexes, SORT_DESC, SORT_NUMERIC, $games, $summaries );
 				//var_dump($gameIndexes);
 				//var_dump($games);
 
@@ -107,6 +120,7 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 
 				for($x = 0; $x < $DEEP_SELECTION_SIZE && $x < $returnedSampleSize; $x++ ){
 					//printf( "%2.2f URL: %s\n", $gameIndexes[$x], $games[$x]['url'] );
+					$reportDescription .= $summaries[$x].$games[$x]['url']."\n";
 					$reportGames[] = array( "url" => $games[$x]['url'], "index" => floor( $gameIndexes[$x] ) );
 					$sum += $gameIndexes[$x];
 					$y++;
@@ -125,6 +139,7 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 				"cheatIndex" => floor($cheatIndex),
 				"deepIndex" => floor($deepIndex),
 				"action" => $action,
+				"reportDescription" => $reportDescription,
 				"games" => $reportGames,
 				"moveTime" => floor($points['SD']),
 				"blur" => floor($points['BL']),
