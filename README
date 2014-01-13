@@ -14,36 +14,36 @@ Output:
 	JSON:
 	-Normal Output:
 	{
-	"userId":"mob", //Username
-	"cheatIndex":93, //CheatIndex from 0->100 higher = likely cheating
-	"deepIndex":100, //DeepIndex of past 100 games from 0->100
-	"action":"REPORT", //Or MARK, or NOTHING
-	"reportDescription":"High Blur Rate: 50, Consistent Move Times: 50, http:\/\/lichess.org\/0drx677t\/black\n
-		High Blur Rate: 50, Consistent Move Times: 50, http:\/\/lichess.org\/0xe4yz2f\/black\n
-		High Blur Rate: 50, Consistent Move Times: 50, http:\/\/lichess.org\/271esk38\n
-		Consistent Move Times: 50, High Blur Rate: 50, http:\/\/lichess.org\/5yx55li4\/black\n
-		Consistent Move Times: 50, High Blur Rate: 50, http:\/\/lichess.org\/7cn8dfhj\/black\n
-		High Blur Rate: 50, Consistent Move Times: 50, http:\/\/lichess.org\/9l7nugig\/black\n
-		High Blur Rate: 50, Consistent Move Times: 50, http:\/\/lichess.org\/akrqcxzv\n
-		Consistent Move Times: 50, High Blur Rate: 50, http:\/\/lichess.org\/b7v5ic4w\/black\n
-		Consistent Move Times: 50, High Blur Rate: 50, http:\/\/lichess.org\/ct2yfvre\n
-		High Blur Rate: 50, Consistent Move Times: 50, http:\/\/lichess.org\/d32bj7e5\n", //Report to be given to moderator
-	"games":[{"url":"http:\/\/lichess.org\/0drx677t\/black","index":100},
-		{"url":"http:\/\/lichess.org\/0xe4yz2f\/black","index":100},
-		{"url":"http:\/\/lichess.org\/271esk38","index":100},
-		{"url":"http:\/\/lichess.org\/5yx55li4\/black","index":100},
-		{"url":"http:\/\/lichess.org\/7cn8dfhj\/black","index":100},
-		{"url":"http:\/\/lichess.org\/9l7nugig\/black","index":100},
-		{"url":"http:\/\/lichess.org\/akrqcxzv","index":100},
-		{"url":"http:\/\/lichess.org\/b7v5ic4w\/black","index":100},
-		{"url":"http:\/\/lichess.org\/ct2yfvre","index":100},
-		{"url":"http:\/\/lichess.org\/d32bj7e5","index":100}], //Json list of games given to moderator
-	"moveTime":44, //Points scored from moveTime in past 10 games (int 0->50)
-	"blur":48, // “” “” “” (int 0->50)
-	"computerAnalysis":36, // “” “” “” (int 0->50)
-	"progress":6, //“” “” “” (int 0->25)
-	"knownEngineIP":0, //“” “” “” (int 0->25)
-	"Error":0 //Error code. 0 = normal
+	"userId":"falconsag", 	//Username
+	"cheatIndex":98,		//CheatIndex from 0->100 higher = likely cheating
+	"deepIndex":73,			//DeepIndex of past 100 games from 0->100
+	"action":"REPORT",		//Or MARK, or NOTHING
+	"reportDescription":	//The report that will be sent to the moderator via user report
+		"Cheat Index:  99\/100,  Deep Index:  74\/100\n
+		100 - http:\/\/lichess.org\/5y6ztdw2\n
+		      Blur Rate: 50\/50, Move-Time Deviation: 50\/50\n
+		100 - http:\/\/lichess.org\/6rfgtty3\n
+		      Error Rate: 50\/50, Blur Rate: 50\/50\n
+		100 - http:\/\/lichess.org\/uqn6ynpu\/black\n
+		      Move-Time Deviation: 50\/50, Blur Rate: 50\/50\n
+		 79 - http:\/\/lichess.org\/ik4hxmrm\n
+		      Blur Rate: 50\/50, Move-Time Deviation: 29\/50\n
+		 73 - http:\/\/lichess.org\/50sw3g5l\n
+		      Blur Rate: 50\/50, Move-Time Deviation: 23\/50\n
+		 61 - http:\/\/lichess.org\/icvg9v9c\/black\n
+		      Blur Rate: 50\/50, Move-Time Deviation: 11\/50\n
+		 53 - http:\/\/lichess.org\/j6zgyyer\n
+		      Blur Rate: 50\/50, Move-Time Deviation:  3\/50\n 
+		 51 - http:\/\/lichess.org\/akepjxm3\n
+		      Blur Rate: 50\/50, Move-Time Deviation:  1\/50\n 
+		 45 - http:\/\/lichess.org\/k3vakrrt\n
+		      Blur Rate: 45\/50\n",
+	"moveTime":26, 			//The amount of points from move time potentially used for the cheat index (int 0->50)
+	"blur":49, 				// “” “” “” (int 0->50)
+	"computerAnalysis":49, 	// “” “” “” (int 0->50)
+	"progress":25,			// “” “” “” (int 0->25)
+	"knownEngineIP":0,		// “” “” “” (int 0->25)
+	"Error":0 				//Error code. 0 = normal
 	}
 
 	-Player does not have any games:

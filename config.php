@@ -18,7 +18,7 @@ $POINTS_TOTAL['SD']	= 50; 	//Total amount of points from standard deviation to b
 
 $CD_CONST_MIN_MOVES	= 2; 	//Minimum amount of moves that can be played in a game for it to be counted
 $SD_CONST_TRESHOLD	= 1; 	//Standard Deviation / Mean, minimum threshold
-$SD_CONST_ADJ		= 0.4; //Adjustment constant for minimum reachable SD/Mean ratio
+$SD_CONST_ADJ		= 0.32; //Adjustment constant for minimum reachable SD/Mean ratio
 
 //-----Blurs---------------------------
 $POINTS_TOTAL['BL']	= 50; 	//Total points from BL -> Cheat Index

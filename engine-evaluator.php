@@ -28,10 +28,6 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 
 	if ( ( $gameJson = file_get_contents( $gameReq ) ) != FALSE
 		 && ( $playerJson = file_get_contents( $playerReq ) ) != FALSE ){
-		/*
-		$gameJson = file_get_contents( $gameReq ); //req game data
-		$playerJson = file_get_contents( $playerReq ); //req player data
-		*/
 
 		$games = json_decode( $gameJson, TRUE )['list']; //decode game data
 		$player = json_decode( $playerJson, TRUE ); //decode player data
@@ -86,32 +82,32 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 
 					$availableAlloc = 100;
 					$gameIndex = 0;
-					$summary = ""; //summary to be used in report.
+					$summary = array(); //summary to be used in report.
 
-					foreach ($deepPoints as $key => $value) {
-						if( $availableAlloc - $POINTS_TOTAL[$key] >= 0 ) {
-							$availableAlloc -= $POINTS_TOTAL[$key];
+					foreach ($deepPoints as $deepPointsKey => $value) {
+						if( $availableAlloc - $POINTS_TOTAL[$deepPointsKey] >= 0 ) {
+							$availableAlloc -= $POINTS_TOTAL[$deepPointsKey];
 							$gameIndex += $value;
+							if ($value > 0) {
+								if( $deepPointsKey == 'SD' ) {
+									$summary[] = sprintf( "Move-Time Deviation: %2.0f/50", $value );
 
-							if( $key == 'SD' ) {
-								$summary .= "Consistent Move Times: $value, ";
+								} else if ( $deepPointsKey == 'BL' ) {
+									$summary[] = sprintf( "Blur Rate: %2.0f/50", $value );
 
-							} else if ( $key == 'BL' ) {
-								$summary .= "High Blur Rate: $value, ";
-
-							} else if ( $key == 'CA' ) {
-								$summary .= "Low Error Rate: $value, ";
-
+								} else if ( $deepPointsKey == 'CA' ) {
+									$summary[] = sprintf( "Error Rate: %2.0f/50", $value );
+								}
 							}
 						}
 					}
-					$summaries[] = $summary.$games[$key]['url'];
+					$summaries[] = sprintf("%3.0f - ", $gameIndex).$games[$key]['url']."\n     ".implode(", ", $summary);
 					$gameIndexes[] = $gameIndex;
 				}
 
-				array_multisort( $gameIndexes, SORT_DESC, SORT_NUMERIC, $games, $summaries );
-				//var_dump($gameIndexes);
-				//var_dump($games);
+				//Sort games by indexes
+				array_multisort( $gameIndexes, SORT_DESC, SORT_NUMERIC, $summaries );
+
 
 				$returnedSampleSize = count( $games );
 				$y = 0;
@@ -119,19 +115,19 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 				//Calculate mean
 
 				for($x = 0; $x < $DEEP_SELECTION_SIZE && $x < $returnedSampleSize; $x++ ){
-					//printf( "%2.2f URL: %s\n", $gameIndexes[$x], $games[$x]['url'] );
-					$reportDescription .= $summaries[$x].$games[$x]['url']."\n";
-					$reportGames[] = array( "url" => $games[$x]['url'], "index" => floor( $gameIndexes[$x] ) );
-					$sum += $gameIndexes[$x];
-					$y++;
+					if($gameIndexes[$x] > 0){ //i.e. there is enough moves played
+						$reportDescription .= $summaries[$x]."\n";
+						$sum += $gameIndexes[$x];
+						$y++;
+					}
 				}
 				$deepIndex = $sum / $y;
 				if ( $deepIndex >= $MARK_THRESHOLD ) {
 					$action = "MARK";
 				}
+				$reportDescription = sprintf("Cheat Index: %3.0f/100,  Deep Index: %3.0f/100\n", $cheatIndex, $deepIndex).$reportDescription;
+				//echo $reportDescription;
 			}
-
-
 
 			//-----Report Outputs-------
 			$outputArray = array(
@@ -140,7 +136,6 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 				"deepIndex" => floor($deepIndex),
 				"action" => $action,
 				"reportDescription" => $reportDescription,
-				"games" => $reportGames,
 				"moveTime" => floor($points['SD']),
 				"blur" => floor($points['BL']),
 				"computerAnalysis" => floor($points['CA']),
@@ -148,17 +143,8 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 				"knownEngineIP" => floor($points['IP']),
 				"Error" => 0
 				);
-			$output = json_encode($outputArray);
-			/*
-			$format = '{"userId":"%s","cheatIndex":%3.2f,"deepIndex":%3.2f,"moveTime":%3.2f,"blur":%3.2f,"computerAnalysis":%3.2f,"progress":%3.2f,"knownEngineIP":%3.2f,"Error":0}';
-			$output = sprintf($format, $username, $cheatIndex, $deepIndex, 
-				$points['SD'],
-				$points['BL'],
-				$points['CA'],
-				$points['RI'],
-				$points['IP']);
-				*/
 
+			$output = json_encode($outputArray);
 
 		}else{
 			$output = '{"Error" : 2}';
@@ -168,9 +154,6 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 	}
 	return $output;
 }
-
-//When calling from command line. Argv[1] is the username, and Argv[2] is the
-//optional token to access hidden information.
 
 $output = "";
 
