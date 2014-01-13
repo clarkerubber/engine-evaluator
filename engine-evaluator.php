@@ -61,10 +61,6 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 			}
 
 			if ( $cheatIndex >= $DEEP_SEARCH_THRESHOLD || $forceDeep == TRUE ) {
-				if ( $cheatIndex >= $REPORT_THRESHOLD ) {
-					$action = "REPORT";
-				}
-
 				$gameReq = $target."game?username=$username&rated=1&nb=$DEEP_SAMPLE_SIZE&token=$token";
 
 				$games = json_decode( file_get_contents( $gameReq ), TRUE )['list'];
@@ -123,6 +119,9 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 					}
 				}
 				$deepIndex = $sum / $y;
+				if ( $deepIndex >= $REPORT_THRESHOLD ) {
+					$action = "REPORT";
+				}
 				if ( $deepIndex >= $MARK_THRESHOLD ) {
 					$action = "MARK";
 				}
