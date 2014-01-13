@@ -3,7 +3,7 @@
 function RIpoints ( $progress ) {
 	//Input: Rating increase over past 10 games
 	//Output: Points for rating increase
-	global $RI_POINTS_TOTAL, $RI_CONST_MIN, $RI_CONST_MAX;
+	global $POINTS_TOTAL, $RI_CONST_MIN, $RI_CONST_MAX;
 
 	$output = 0;
 
@@ -13,9 +13,9 @@ function RIpoints ( $progress ) {
 		output = 	|-------------------------------------|
 					| Maximum Progress - Minimum Progress |
 		*/
-		$output = $RI_POINTS_TOTAL * ( $progress - $RI_CONST_MIN ) / ( $RI_CONST_MAX - $RI_CONST_MIN );
-		if( $output > $RI_POINTS_TOTAL ){
-			$output = $RI_POINTS_TOTAL;
+		$output = $POINTS_TOTAL['RI'] * ( $progress - $RI_CONST_MIN ) / ( $RI_CONST_MAX - $RI_CONST_MIN );
+		if( $output > $POINTS_TOTAL['RI'] ){
+			$output = $POINTS_TOTAL['RI'];
 		}
 	}
 

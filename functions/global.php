@@ -1,5 +1,5 @@
 <?php
-
+/*
 function functionalURL ( $address ){
 	$headers = get_headers($address);
 
@@ -10,6 +10,7 @@ function functionalURL ( $address ){
 	}
     return $output;
 }
+*/
 
 function scalePoints ( $maximumOutput, $gamesWithData, $unscaledPoints ) {
 	//Input: Unscaled, un-weighted points

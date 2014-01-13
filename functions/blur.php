@@ -1,11 +1,15 @@
 <?php
 
-function BLpoints ( $games, $username ) {
+function BLpoints ( $games, $username, $threshold = NULL ) {
 	//Input: A list of games with blurs
 	//Output: Amount of points for blur rate
 
 	global $SAMPLE_SIZE;
-	global $BL_POINTS_TOTAL, $BL_CONST_MIN_MOVES;
+	global $POINTS_TOTAL, $BL_CONST_MIN_MOVES;
+
+	if ( $threshold == NULL ){
+		$threshold = $BL_CONST_MIN_MOVES;
+	}
 
 	$gamesWithData = 0;
 	$unscaledPoints = 0;
@@ -28,13 +32,13 @@ function BLpoints ( $games, $username ) {
 				$moveCount = count( $game['players']['black']['moveTimes'] );
 			}
 
-			if( $moveCount > $BL_CONST_MIN_MOVES ){
+			if( $moveCount > $threshold ){
 				$gamesWithData++;
 				$unscaledPoints += BLpointsForGame( $blurs, $moveCount );
 			}
 		}
 	}
-	return scalePoints( $BL_POINTS_TOTAL, $gamesWithData, $unscaledPoints );
+	return scalePoints( $POINTS_TOTAL['BL'], $gamesWithData, $unscaledPoints );
 }
 
 function BLpointsForGame( $blurs, $moveCount ) {

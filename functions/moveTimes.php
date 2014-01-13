@@ -1,11 +1,15 @@
 <?php
 
-function SDpoints ( $games, $username ) {
+function SDpoints ( $games, $username, $threshold = NULL ) {
 	//Inputs: List of games and target username
 	//Output: Points - a score of how suspicious a player is.
 
 	global $SAMPLE_SIZE;
-	global $SD_POINTS_TOTAL, $SD_CONST_MIN_MOVES;
+	global $POINTS_TOTAL, $SD_CONST_MIN_MOVES;
+
+	if ( $threshold == NULL ) {
+		$threshold = $SD_CONST_MIN_MOVES;
+	}
 
 	$gamesWithData = 0;
 	$unscaledPoints = 0;
@@ -26,13 +30,13 @@ function SDpoints ( $games, $username ) {
 			}
 
 			//-----Add to unscaled points for move times
-			if( count($moves) > $SD_CONST_MIN_MOVES ) {
+			if( count($moves) > $threshold ) {
 				$gamesWithData++;
 				$unscaledPoints += SDpointsForGame( $moves );
 			}
 		}
 	}
-	return scalePoints( $SD_POINTS_TOTAL, $gamesWithData, $unscaledPoints );
+	return scalePoints( $POINTS_TOTAL['SD'], $gamesWithData, $unscaledPoints );
 }
 
 function SDpointsForGame ( $moves ) {

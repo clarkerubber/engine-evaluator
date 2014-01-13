@@ -1,3 +1,39 @@
+Calling engine-evaluator.php
+From the command line:
+	php engine-evaluator.php $username [$forceDeepSearch $lichessApiToken $lichessURL]
+
+$username (String): The username that is being investigated. (capitalisation allowed)
+
+$forDeepSearch (Boolean: TRUE, FALSE): True = past 100 games will be looked at and a detailed deepIndex will be returned in the output JSON. False = deepSearch will only be activated if the user’s cheat index is equal to or above 60.
+
+$lichessApiToken (String): The passkey that is used to access secret information from lichess APIs.
+
+$lichessURL (String, URL): The HTTP address of the lichess server.
+
+Output:
+	JSON:
+	-Normal Output:
+	{
+	"userId":"thinkabit", 	//Username
+	"cheatIndex":67.32,	//CheatIndex from 0->100 higher = likely cheating
+	"deepIndex":89.16,	//DeepIndex of past 100 games from 0->100
+	"moveTime":12.22,	//Points scored from moveTime in past 10 games (int 0->50)
+	"blur":0.24,		// “” “” “” (int 0->50)
+	"computerAnalysis":42.32,	// “” “” “” (int 0->50)
+	"progress":0.00,	//“” “” “” (int 0->25)
+	"knownEngineIP":25.00,	//“” “” “” (int 0->25)
+	"Error":0		//Error code. 0 = normal
+	}
+
+	-Player does not have any games:
+	{"Error" : 2}
+
+	-Could not reach lichess server (404):
+	{"Error" : 1}
+
+
+
+
 Aim: To provide a grading system for players with
 regards to the likelihood that they are cheating.
 
