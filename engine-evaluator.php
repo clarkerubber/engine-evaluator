@@ -104,6 +104,19 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 			}
 
 			//-----Report Outputs-------
+			$outputArray = array(
+				"userId" => $username,
+				"cheatIndex" => floor($cheatIndex),
+				"deepIndex" => floor($deepIndex),
+				"moveTime" => floor($points['SD']),
+				"blur" => floor($points['BL']),
+				"computerAnalysis" => floor($points['CA']),
+				"progress" => floor($points['RI']),
+				"knownEngineIP" => floor($points['IP']),
+				"Error" => 0
+				);
+			$output = json_encode($outputArray);
+			/*
 			$format = '{"userId":"%s","cheatIndex":%3.2f,"deepIndex":%3.2f,"moveTime":%3.2f,"blur":%3.2f,"computerAnalysis":%3.2f,"progress":%3.2f,"knownEngineIP":%3.2f,"Error":0}';
 			$output = sprintf($format, $username, $cheatIndex, $deepIndex, 
 				$points['SD'],
@@ -111,6 +124,7 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 				$points['CA'],
 				$points['RI'],
 				$points['IP']);
+				*/
 
 
 		}else{
