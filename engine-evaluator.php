@@ -140,8 +140,7 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 				"blur" => floor( 100 * $points['BL'] / $POINTS_TOTAL['BL'] ),
 				"computerAnalysis" => floor( 100 * $points['CA'] / $POINTS_TOTAL['CA'] ),
 				"progress" => floor( 100 * $points['RI'] / $POINTS_TOTAL['RI'] ),
-				"knownEngineIP" => floor( 100 * $points['IP'] / $POINTS_TOTAL['IP'] ),
-				"Error" => 0
+				"knownEngineIP" => floor( 100 * $points['IP'] / $POINTS_TOTAL['IP'] )
 				);
 
 			$output = json_encode($outputArray);
