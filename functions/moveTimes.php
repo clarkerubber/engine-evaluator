@@ -45,10 +45,10 @@ function SDpointsForGame ( $moves ) {
 
 	global $SD_CONST_TRESHOLD, $SD_CONST_ADJ;
 
-	$deviationOverMean = SDdeviationOverMean( $moves );
+	$deviation = SDdeviation( $moves );
 	$output = 0;
 
-	if( $deviationOverMean < $SD_CONST_TRESHOLD ){
+	if( $deviation < $SD_CONST_TRESHOLD ){
 		/*
 					| Threshold - Deviation Over Mean |2
 		output = 	|---------------------------------|
@@ -57,15 +57,37 @@ function SDpointsForGame ( $moves ) {
 		Basically takes the diviation over mean and returns a scaled value between 0 -> 1
 
 		*/
-		$output = pow( ( $SD_CONST_TRESHOLD - $deviationOverMean ) / ( $SD_CONST_TRESHOLD - $SD_CONST_ADJ ) , 2 );
+		$output = pow( ( $SD_CONST_TRESHOLD - $deviation ) / ( $SD_CONST_TRESHOLD - $SD_CONST_ADJ ) , 2 );
 	}
 
 	return ( $output > 1 ) ? 1 : $output;
 }
 
-function SDdeviationOverMean ( $moves ) {
+function SDdeviation ( $moves, $remove_outliers = NULL ) {
 	//Input: A list of moves
 	//Output: Standard Deviation / Mean Move Time
+	global $SD_PRE_MOVE_CORRECTION, $SD_REMOVE_OUTLIERS, $SD_PRE_MOVE_TIME;
+	global $SD_OUTLIER_PRECENTAGE;
+
+	if ( $remove_outliers == NULL ) {
+		$remove_outliers = $SD_REMOVE_OUTLIERS;
+	}
+
+	arsort( $moves );
+
+	foreach ($moves as $key => $value) {
+		if ( $value < $SD_PRE_MOVE_TIME ) {
+			$moves[$key] = $SD_PRE_MOVE_CORRECTION;
+		}
+	}
+
+
+	if ( $remove_outliers == TRUE ) {
+		for ( $x = 0; $x < floor ( $SD_OUTLIER_PERCENTAGE * count( $moves ) ); $x++ ) {
+			array_shift( $moves );
+		}	
+	}
+	
 
 	$sum = 0;
 	$squareDif = 0;
@@ -83,5 +105,5 @@ function SDdeviationOverMean ( $moves ) {
 	}
 	$deviation = sqrt( $squareDif / $moveCount );
 
-	return $deviation / $mean;
+	return $deviation;
 }

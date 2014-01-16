@@ -17,8 +17,11 @@ $DEEP_SEARCH_THRESHOLD = 60;
 $POINTS_TOTAL['SD']	= 50; 	//Total amount of points from standard deviation to be assigned towards cheating index
 
 $CD_CONST_MIN_MOVES	= 2; 	//Minimum amount of moves that can be played in a game for it to be counted
-$SD_CONST_TRESHOLD	= 1; 	//Standard Deviation / Mean, minimum threshold
-$SD_CONST_ADJ		= 0.32; //Adjustment constant for minimum reachable SD/Mean ratio
+$SD_CONST_TRESHOLD	= 100; 	//Standard Deviation / Mean, minimum threshold
+$SD_CONST_ADJ		= 25; //Adjustment constant for minimum reachable SD/Mean ratio
+$SD_PRE_MOVE_CORRECTION = -100;
+$SD_REMOVE_OUTLIERS 	= TRUE;
+$SD_OUTLIER_PERCENTAGE = 0.05;
 
 //-----Blurs---------------------------
 $POINTS_TOTAL['BL']	= 50; 	//Total points from BL -> Cheat Index

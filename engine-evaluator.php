@@ -111,7 +111,7 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 
 				//Calculate mean
 
-				for($x = 0; $x < $DEEP_SELECTION_SIZE && $x < $returnedSampleSize; $x++ ){
+				for( $x = 0; $x < $DEEP_SELECTION_SIZE && $x < $returnedSampleSize; $x++ ){
 					if($gameIndexes[$x] > 0){ //i.e. there is enough moves played
 						$reportDescription .= $summaries[$x]."\n";
 						$sum += $gameIndexes[$x];
