@@ -57,10 +57,35 @@ function SDpointsForGame ( $moves ) {
 		Basically takes the diviation over mean and returns a scaled value between 0 -> 1
 
 		*/
-		$output = pow( ( $SD_CONST_TRESHOLD - $deviation ) / ( $SD_CONST_TRESHOLD - $SD_CONST_ADJ ), 2 );
+		$adjustment = SDrange( SDmean( $moves ) );
+		$output = pow( ( $SD_CONST_TRESHOLD - $deviation ) / ( $SD_CONST_TRESHOLD - $adjustment ), 2 );
+		//echo "$output = $SD_CONST_TRESHOLD - $deviation / $SD_CONST_TRESHOLD - $adjustment \n";
 	}
 
 	return ( $output > 1 ) ? 1 : $output;
+}
+
+function SDrange ( $mean ) {
+	global $SD_AVERAGE_DIVISOR, $SD_RANGE_LOWER_LIMIT, $SD_RANGE_UPPER_LIMIT;
+
+	if ( $mean < $SD_RANGE_LOWER_LIMIT ) {
+		$range = $SD_RANGE_LOWER_LIMIT / $SD_AVERAGE_DIVISOR;
+	} else if ( $mean > $SD_RANGE_UPPER_LIMIT ) {
+		$range = $SD_RANGE_UPPER_LIMIT / $SD_AVERAGE_DIVISOR;
+	} else {
+		$range = $mean / $SD_AVERAGE_DIVISOR;
+	}
+	//echo "Mean: $mean => Range: $range\n";
+
+	return $range;
+}
+
+function SDmean ( $moves ) {
+	$sum = 0;
+	foreach( $moves as $time ){
+		$sum += $time;
+	}
+	return $sum / count( $moves );
 }
 
 function SDdeviation ( $moves, $remove_outliers = NULL ) {
@@ -88,16 +113,10 @@ function SDdeviation ( $moves, $remove_outliers = NULL ) {
 		}	
 	}
 	
-
-	$sum = 0;
 	$squareDif = 0;
-	$moveCount = count( $moves ); 
+	$moveCount = count( $moves );
 
-	//Determine Mean of Times
-	foreach( $moves as $time ){
-		$sum += $time;
-	}
-	$mean = $sum / $moveCount;
+	$mean = SDmean( $moves );
 
 	//Find population distribution
 	foreach( $moves as $time ){

@@ -20,8 +20,12 @@ $CD_CONST_MIN_MOVES	= 2; 	//Minimum amount of moves that can be played in a game
 $SD_CONST_TRESHOLD	= 100; 	//Standard Deviation / Mean, minimum threshold
 $SD_CONST_ADJ		= 15; //Adjustment constant for minimum reachable SD/Mean ratio
 $SD_PRE_MOVE_CORRECTION = -100;
+$SD_PRE_MOVE_TIME	= 5;
 $SD_REMOVE_OUTLIERS 	= TRUE;
 $SD_OUTLIER_PERCENTAGE = 0.05;
+$SD_AVERAGE_DIVISOR	= 5;
+$SD_RANGE_LOWER_LIMIT = 20;
+$SD_RANGE_UPPER_LIMIT = 600;
 
 //-----Blurs---------------------------
 $POINTS_TOTAL['BL']	= 50; 	//Total points from BL -> Cheat Index
