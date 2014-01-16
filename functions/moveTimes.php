@@ -50,14 +50,14 @@ function SDpointsForGame ( $moves ) {
 
 	if( $deviation < $SD_CONST_TRESHOLD ){
 		/*
-					| Threshold - Deviation Over Mean |2
+					|      Threshold - Deviation      |
 		output = 	|---------------------------------|
 					| Threshold - Adjustment Variable |
 
 		Basically takes the diviation over mean and returns a scaled value between 0 -> 1
 
 		*/
-		$output = pow( ( $SD_CONST_TRESHOLD - $deviation ) / ( $SD_CONST_TRESHOLD - $SD_CONST_ADJ ) , 2 );
+		$output = abs( ( $SD_CONST_TRESHOLD - $deviation ) / ( $SD_CONST_TRESHOLD - $SD_CONST_ADJ ) );
 	}
 
 	return ( $output > 1 ) ? 1 : $output;
