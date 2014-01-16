@@ -57,7 +57,7 @@ function SDpointsForGame ( $moves ) {
 		Basically takes the diviation over mean and returns a scaled value between 0 -> 1
 
 		*/
-		$output = abs( ( $SD_CONST_TRESHOLD - $deviation ) / ( $SD_CONST_TRESHOLD - $SD_CONST_ADJ ) );
+		$output = pow( ( $SD_CONST_TRESHOLD - $deviation ) / ( $SD_CONST_TRESHOLD - $SD_CONST_ADJ ), 2 );
 	}
 
 	return ( $output > 1 ) ? 1 : $output;
