@@ -67,7 +67,7 @@ function SDdeviation ( $moves, $remove_outliers = NULL ) {
 	//Input: A list of moves
 	//Output: Standard Deviation / Mean Move Time
 	global $SD_PRE_MOVE_CORRECTION, $SD_REMOVE_OUTLIERS, $SD_PRE_MOVE_TIME;
-	global $SD_OUTLIER_PRECENTAGE;
+	global $SD_OUTLIER_PERCENTAGE;
 
 	if ( $remove_outliers == NULL ) {
 		$remove_outliers = $SD_REMOVE_OUTLIERS;
