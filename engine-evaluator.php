@@ -78,28 +78,18 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 
 					$availableAlloc = 100;
 					$gameIndex = 0;
-					$summary = array(
-                        "url" => str_replace( "lichess.org/", "lichess.org/analyse/", $games[$key]['url'] )
-                    );
 
 					foreach ($deepPoints as $deepPointsKey => $value) {
 						if( $availableAlloc - $POINTS_TOTAL[$deepPointsKey] >= 0 ) {
 							$availableAlloc -= $POINTS_TOTAL[$deepPointsKey];
 							$gameIndex += $value;
-							if ($value > 0) {
-								if( $deepPointsKey == 'SD' ) {
-									$summary["moveTime"] = floor(2 * $value);
-
-								} else if ( $deepPointsKey == 'BL' ) {
-									$summary["blur"] = floor(2 * $value);
-
-								} else if ( $deepPointsKey == 'CA' ) {
-									$summary["error"] = floor(2 * $value);
-								}
-							}
 						}
 					}
-                    $summaries[] = $summary;
+                    $summaries[] = array( "url" => str_replace( "lichess.org/", "lichess.org/analyse/", $games[$key]['url'] ),
+                    	"moveTime" => floor( 2 * $deepPoints['SD'] ),
+                    	"blur" => floor( 2 * $deepPoints['BL'] ), 
+                    	"error" => floor( 2 * $deepPoints['CA'] ) 
+                    );
 					$gameIndexes[] = $gameIndex;
 				}
 
