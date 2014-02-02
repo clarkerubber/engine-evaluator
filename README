@@ -20,21 +20,21 @@ Output:
 	"action":"REPORT",		//Or MARK, or NOTHING
 	"reportDescription":	//The report that will be sent to the moderator via user report
 		"Cheat Index:  87\/100,  Deep Index:  42\/100\n
-		 63 - http:\/\/lichess.org\/analyse\/kxa5n76m\n
+		 63 - http:\/\/lichess.org\/kxa5n76m\n
 		      Error Rate:  96\/100, Blur Rate:  29\/100\n 
-		 59 - http:\/\/lichess.org\/analyse\/h4dp8ivx\n
+		 59 - http:\/\/lichess.org\/h4dp8ivx\n
 		      Error Rate:  74\/100, Blur Rate:  44\/100\n
-		 59 - http:\/\/lichess.org\/analyse\/bn35019d\/black\n
+		 59 - http:\/\/lichess.org\/bn35019d\/black\n
 		      Error Rate:  94\/100, Blur Rate:  23\/100\n
-		 50 - http:\/\/lichess.org\/analyse\/ww4egmem\/black\n
+		 50 - http:\/\/lichess.org\/ww4egmem\/black\n
 		      Error Rate:  67\/100, Blur Rate:  34\/100\n
-		 41 - http:\/\/lichess.org\/analyse\/23zz3sxg\n
+		 41 - http:\/\/lichess.org\/23zz3sxg\n
 		      Error Rate:  66\/100, Blur Rate:  17\/100\n
-		 34 - http:\/\/lichess.org\/analyse\/eaqpjcw6\n
+		 34 - http:\/\/lichess.org\/eaqpjcw6\n
 		      Error Rate:  51\/100, Blur Rate:  18\/100\n
-		 18 - http:\/\/lichess.org\/analyse\/5mi19ntr\n
+		 18 - http:\/\/lichess.org\/5mi19ntr\n
 		      Blur Rate:  30\/100, Move-Time Deviation:   5\/100\n
-		 16 - http:\/\/lichess.org\/analyse\/ztst7ex8\/black\n
+		 16 - http:\/\/lichess.org\/ztst7ex8\/black\n
 		      Blur Rate:  31\/100, Move-Time Deviation:   0\/100\n",
 	"moveTime":26, 			//The amount of points from move time potentially used for the cheat index (int 0->100)
 	"blur":49, 				// “” “” “” (int 0->100)
@@ -53,23 +53,23 @@ Output:
 
 	-User Report Example:
 Cheat Index:  99/100,  Deep Index:  74/100
-100 - http://lichess.org/analyse/5y6ztdw2
+100 - http://lichess.org/5y6ztdw2
      Blur Rate: 100/100, Move-Time Deviation: 100/100
-100 - http://lichess.org/analyse/6rfgtty3
+100 - http://lichess.org/6rfgtty3
      Error Rate: 100/100, Blur Rate: 100/100
-100 - http://lichess.org/analyse/uqn6ynpu/black
+100 - http://lichess.org/uqn6ynpu/black
      Move-Time Deviation: 100/100, Blur Rate: 100/100
- 79 - http://lichess.org/analyse/ik4hxmrm
+ 79 - http://lichess.org/ik4hxmrm
      Blur Rate: 100/100, Move-Time Deviation:  58/100
- 73 - http://lichess.org/analyse/50sw3g5l
+ 73 - http://lichess.org/50sw3g5l
      Blur Rate: 100/100, Move-Time Deviation:  46/100
- 61 - http://lichess.org/analyse/icvg9v9c/black
+ 61 - http://lichess.org/icvg9v9c/black
      Blur Rate: 100/100, Move-Time Deviation:  22/100
- 53 - http://lichess.org/analyse/j6zgyyer
+ 53 - http://lichess.org/j6zgyyer
      Blur Rate: 100/100, Move-Time Deviation:   6/100
- 51 - http://lichess.org/analyse/akepjxm3
+ 51 - http://lichess.org/akepjxm3
      Blur Rate: 100/100, Move-Time Deviation:   2/100
- 45 - http://lichess.org/analyse/k3vakrrt
+ 45 - http://lichess.org/k3vakrrt
      Blur Rate:  90/100
 
      The first number is the index (likelihood of cheating) for that game. It is then followed by the URL to the game.

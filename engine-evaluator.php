@@ -85,7 +85,7 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 							$gameIndex += $value;
 						}
 					}
-                    $summaries[] = array( "url" => str_replace( "lichess.org/", "lichess.org/analyse/", $games[$key]['url'] ),
+                    $summaries[] = array( "url" => str_replace( "lichess.org/", "lichess.org/", $games[$key]['url'] ),
                     	"moveTime" => floor( 2 * $deepPoints['SD'] ),
                     	"blur" => floor( 2 * $deepPoints['BL'] ), 
                     	"error" => floor( 2 * $deepPoints['CA'] ) 
