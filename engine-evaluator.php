@@ -10,6 +10,7 @@ include("functions/blur.php");
 include("functions/computerAnalysis.php");
 include("functions/ratingIncrease.php");
 include("functions/knownEngineIP.php");
+include("functions/holdAlert.php");
 
 function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "http://en.lichess.org/api/" ) {
 	//Input: A players name
@@ -42,6 +43,7 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 			$points['SD'] = SDpoints( $games, $username );
 			$points['BL'] = BLpoints( $games, $username );
 			$points['CA'] = CApoints( $games, $username );
+			$points['HA'] = HApoints( $games, $username );
 
 			//-----Player Functions-----
 			$points['RI'] = RIpoints( $player['progress'] );
@@ -73,6 +75,7 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 					$deepPoints['SD'] = SDpoints( $game, $username, $DEEP_MOVE_THRESHOLD );
 					$deepPoints['BL'] = BLpoints( $game, $username, $DEEP_MOVE_THRESHOLD );
 					$deepPoints['CA'] = CApoints( $game, $username, $DEEP_MOVE_THRESHOLD );
+					$deepPoints['HA'] = HApoints( $game, $username );
 
 					arsort( $deepPoints );
 
@@ -88,7 +91,8 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
                     $summaries[] = array( "url" => str_replace( "lichess.org/", "lichess.org/", $games[$key]['url'] ),
                     	"moveTime" => floor( 2 * $deepPoints['SD'] ),
                     	"blur" => floor( 2 * $deepPoints['BL'] ), 
-                    	"error" => floor( 2 * $deepPoints['CA'] ) 
+                    	"error" => floor( 2 * $deepPoints['CA'] ),
+                    	"hold-alert" => floor( 2 * $deepPoints['HA'] ) 
                     );
 					$gameIndexes[] = $gameIndex;
 				}
