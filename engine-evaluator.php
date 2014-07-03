@@ -151,11 +151,11 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 $output = "";
 
 if( isset( $argv[4] ) ) {
-	$output = cheatIndex( strtolower( $argv[1] ), $argv[2], $argv[3], $argv[4] );
+	$output = cheatIndex( strtolower( $argv[1] ), $argv[2] == "true", $argv[3], $argv[4] );
 } else if ( isset( $argv[3] ) ) {
-	$output = cheatIndex( strtolower( $argv[1] ), $argv[2], $argv[3] );
+	$output = cheatIndex( strtolower( $argv[1] ), $argv[2] == "true", $argv[3] );
 } else if ( isset( $argv[2] ) ) {
-	$output = cheatIndex( strtolower( $argv[1] ), $argv[2] );
+	$output = cheatIndex( strtolower( $argv[1] ), $argv[2] == "true");
 } else if ( isset( $argv[1] ) ) {
 	$output = cheatIndex( strtolower( $argv[1] ) );
 } else {
