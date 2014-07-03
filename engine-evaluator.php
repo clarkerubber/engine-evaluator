@@ -47,7 +47,7 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 
 			//-----Player Functions-----
 			$points['RI'] = RIpoints( $player['progress'] );
-			$points['IP'] = IPpoints( $player['knownEnginesSharingIp'] );
+			$points['IP'] = IPpoints( isset($player['knownEnginesSharingIp']) ? $player['knownEnginesSharingIp'] : array());
 
 			arsort( $points );
 
