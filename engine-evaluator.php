@@ -92,7 +92,7 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
                     	"moveTime" => floor( 2 * $deepPoints['SD'] ),
                     	"blur" => floor( 2 * $deepPoints['BL'] ), 
                     	"error" => floor( 2 * $deepPoints['CA'] ),
-                    	"holdAlert" => floor( 2 * $deepPoints['HA'] ) 
+                    	"hold" => floor( 2 * $deepPoints['HA'] ) 
                     );
 					$gameIndexes[] = $gameIndex;
 				}
