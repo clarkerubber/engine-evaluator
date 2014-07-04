@@ -52,7 +52,7 @@ $POINTS_TOTAL['IP']		= 25; 	//Total points from IP -> Cheat Index
 //-----Hold Alert----------------------
 $POINTS_TOTAL['HA'] 	= 50;
 
-$HA_MIN 				= 0.5;	// Minimum amount of points /1 that can be assigned for a game that contains hold alerts
+$HA_MIN 				= 0.6;	// Minimum amount of points /1 that can be assigned for a game that contains hold alerts
 $HA_MAX 				= 1;	// Maximum ""
 $HA_PEAK 				= 21.5;	// Ply where the points scale peaks
-$HA_DECAY 				= 0.01;	// Decay rate of points as moving away from the peak
+$HA_DECAY 				= 0.02;	// Decay rate of points as moving away from the peak

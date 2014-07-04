@@ -37,5 +37,5 @@ function HApointsForGame ( $holds ) {
 
 	GLOBAL $HA_MIN, $HA_MAX, $HA_PEAK, $HA_DECAY;
 
-	return ( $HA_MAX - $HA_MIN ) * exp( pow( - $HA_DECAY * ( $holds['ply'] - $HA_PEAK ) , 2 ) ) + $HA_MIN;
+	return ( $HA_MAX - $HA_MIN ) * exp( - $HA_DECAY * pow( $holds['ply'] - $HA_PEAK , 2 ) ) + $HA_MIN;
 }
