@@ -25,7 +25,7 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 	}
 
 	$gameReq = $target."game?username=$username&rated=1&nb=$SAMPLE_SIZE&token=$token"; //api request for player game data
-	$playerReq = $target."user/$username?token=$lichessApiToken"; //api request for player information
+	$playerReq = $target."user/$username?token=$token"; //api request for player information
 
 	if ( ( $gameJson = file_get_contents( $gameReq ) ) != FALSE
 		 && ( $playerJson = file_get_contents( $playerReq ) ) != FALSE ){
