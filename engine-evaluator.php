@@ -46,7 +46,9 @@ function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "h
 			$points['HA'] = HApoints( $games, $username );
 
 			//-----Player Functions-----
-			$points['RI'] = RIpoints( $player['progress'] );
+            $progs = array_map(function($perf) { return $perf['prog']; }, $player['perfs']);
+            $prog = max($progs);
+			$points['RI'] = RIpoints( $prog );
 			$points['IP'] = IPpoints( isset($player['knownEnginesSharingIp']) ? $player['knownEnginesSharingIp'] : array());
 
 			arsort( $points );
