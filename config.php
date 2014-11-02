@@ -1,17 +1,17 @@
 <?php
 
 //-----ACTION THRESHOLDS---------------
-$REPORT_THRESHOLD 	= 60;
-$MARK_THRESHOLD		= 101;
+$REPORT_THRESHOLD 	= 65;
+$MARK_THRESHOLD		= 90;
 
 //-----Globals-------------------------
-$SAMPLE_SIZE			= 10; 	//amount of games to sample
+$SAMPLE_SIZE			= 30; 	//amount of games to sample
 
 $DEEP_MOVE_THRESHOLD 	= 10;
 
-$DEEP_SAMPLE_SIZE 		= 100;
+$DEEP_SAMPLE_SIZE 		= 60;
 $DEEP_SELECTION_SIZE 	= 10;
-$DEEP_SEARCH_THRESHOLD 	= 60;
+$DEEP_SEARCH_THRESHOLD 	= 50;
 
 //-----Standard Deviation--------------
 $POINTS_TOTAL['SD']		= 50; 	//Total amount of points from standard deviation to be assigned towards cheating index
