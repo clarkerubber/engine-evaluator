@@ -1,6 +1,5 @@
 <?php
 
-include("keys.php"); //include keys to lichess API
 include("config.php"); //Include settings
 
 //include functions
@@ -12,7 +11,7 @@ include("functions/ratingIncrease.php");
 include("functions/knownEngineIP.php");
 include("functions/holdAlert.php");
 
-function cheatIndex ( $username, $forceDeep = FALSE, $token = NULL, $target = "http://en.lichess.org/api/" ) {
+function cheatIndex ( $username, $forceDeep, $token, $target) {
 	//Input: A players name
 	//Output: A players cheat index
 
@@ -154,14 +153,9 @@ $output = "";
 
 if( isset( $argv[4] ) ) {
 	$output = cheatIndex( strtolower( $argv[1] ), $argv[2] == "true", $argv[3], $argv[4] );
-} else if ( isset( $argv[3] ) ) {
-	$output = cheatIndex( strtolower( $argv[1] ), $argv[2] == "true", $argv[3] );
-} else if ( isset( $argv[2] ) ) {
-	$output = cheatIndex( strtolower( $argv[1] ), $argv[2] == "true");
-} else if ( isset( $argv[1] ) ) {
-	$output = cheatIndex( strtolower( $argv[1] ) );
-} else {
-    error_log("Missing username parameter");
+}
+else {
+    error_log("Missing parameters");
     exit(3);
 }
 
